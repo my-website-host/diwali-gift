@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>A Little Diwali Surprise 🪔</title>
+<meta name="theme-color" content="#3a0d2e">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Kalam:wght@400;700&family=Rozha+One&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="bg" aria-hidden="true"></div>
+
+<!-- SOUND TOGGLE -->
+<button id="sound-btn" class="sound-toggle" aria-label="Toggle sound effects" type="button" title="Toggle sound">
+  <span id="sound-icon">🔊</span>
+</button>
+
+<main>
+  <!-- 1. NAME GATE -->
+  <section id="gate" class="screen">
+    <div class="card">
+      <div class="hero">🪔</div>
+      <h1>Happy Diwali!</h1>
+      <p class="sub">There's a little surprise waiting inside, made just for one person. Enter your name or secret code below to open it!</p>
+      <form id="gate-form" autocomplete="off">
+        <input id="name-input" type="text" placeholder="Type your name or secret code" aria-label="Your name or secret code" enterkeyhint="go">
+        <button class="primary" type="submit">Open my gift 🎁</button>
+      </form>
+      <p id="gate-msg" class="msg" role="status"></p>
+    </div>
+  </section>
+
+  <!-- 2. PERSONAL QUESTION -->
+  <section id="quiz" class="screen">
+    <div class="card">
+      <h2 id="quiz-hi"></h2>
+      <p class="sub">Just to be sure it's really you…</p>
+      <p id="quiz-q" class="question"></p>
+      <div id="quiz-opts"></div>
+      <p id="quiz-msg" class="msg" role="status"></p>
+    </div>
+  </section>
+
+  <!-- 3. THE GAME -->
+  <section id="game" class="screen game-screen">
+    <div class="game-header">
+      <h2 id="game-title"></h2>
+      <div class="game-instruction-pill">
+        <span class="pulse-dot">🪔</span>
+        <span id="game-hint">Tap each food piece to take a bite &amp; unlock your secret Diwali messages!</span>
+        <span class="sparkle-star">✨</span>
+      </div>
+    </div>
+
+    <div class="game-layout">
+      <!-- LEFT: The Food Feast on Table -->
+      <div class="food-col">
+        <div id="stage"></div>
+        <div id="progress" aria-label="Progress"></div>
+      </div>
+
+      <!-- RIGHT: The Handwritten Paper Note -->
+      <aside class="note-col">
+        <div class="paper-note">
+          <div class="tape-strip" aria-hidden="true"></div>
+          <div class="paper-pin" aria-hidden="true">📌</div>
+
+          <!-- Instruction Banner at top of note box -->
+          <div class="paper-instruction-banner">
+            <span class="banner-icon">👆</span>
+            <span>Tap food items on the plate to unlock secret notes!</span>
+            <span class="banner-sparkle">✨</span>
+          </div>
+
+          <div class="paper-top">
+            <span class="paper-stamp">Special Note 💌</span>
+          </div>
+          <h3 id="note-heading" class="paper-heading">A Note For You 💌</h3>
+          <div id="note-body" class="paper-body"></div>
+          <div class="paper-footer">
+            <span class="paper-doodle">🪔</span>
+            <span class="paper-signoff">Relish each memory ✨</span>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <!-- 4. FINALE -->
+  <section id="finale" class="screen">
+    <div class="card wish">
+      <div class="hero">🎆</div>
+      <h1 id="wish-title"></h1>
+      <p id="wish-text" class="wish-text"></p>
+      <div class="row">
+        <button class="primary" id="burst" type="button">More confetti 🎉</button>
+        <button class="ghost" id="replay" type="button">Play again 🔁</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- MEMORY POPUP -->
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="mem-count">
+  <div class="card mem">
+    <p id="mem-count" class="mem-count"></p>
+    <div id="mem-photo" class="mem-photo hidden"></div>
+    <p id="mem-text" class="mem-text"></p>
+    <button id="mem-next" class="primary" type="button"></button>
+  </div>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<script src="config.js"></script>
+<script src="foods.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
