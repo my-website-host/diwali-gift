@@ -166,9 +166,11 @@ friends.forEach(f => {
 console.log(`✓ Generated ${friends.length} subpages in index/<hashed-id>/`);
 
 // 4. Generate links.txt (Gitignored)
+const hostedBase = 'https://my-website-host.github.io/diwali-gift';
 let linksDoc = `========================================================================
 🪔 DIWALI GIFT - SECRET INVITE LINKS FOR FRIENDS 🪔
 ========================================================================
+HOSTED SITE:  ${hostedBase}/
 CONFIDENTIAL: Keep this file private. It is automatically gitignored.
 Share each link only with its respective friend!
 
@@ -182,21 +184,16 @@ friends.forEach((f, idx) => {
   linksDoc += `------------------------------------------------------------------------\n`;
   linksDoc += `[${idx + 1}] ${f.displayName.toUpperCase()} (${f.food})\n`;
   linksDoc += `------------------------------------------------------------------------\n`;
-  linksDoc += `Direct Link (Recommended):   index.html?u=${f.id}\n`;
-  linksDoc += `Pretty Path Link:            index/${f.id}/\n`;
-  linksDoc += `Hash Link (Anchor):          index.html#${f.id}\n`;
-  linksDoc += `Local Test Link:             file:///${__dirname.replace(/\\/g, '/')}/index.html?u=${f.id}\n`;
-  linksDoc += `\n`;
-  linksDoc += `GitHub Pages / Hosted URL template:\n`;
-  linksDoc += `https://<YOUR-USERNAME>.github.io/<REPO-NAME>/?u=${f.id}\n`;
-  linksDoc += `https://<YOUR-USERNAME>.github.io/<REPO-NAME>/index/${f.id}/\n\n`;
+  linksDoc += `Live Link (Recommended):   ${hostedBase}/?u=${f.id}\n`;
+  linksDoc += `Pretty Path Link:          ${hostedBase}/index/${f.id}/\n`;
+  linksDoc += `Anchor Hash Link:          ${hostedBase}/#${f.id}\n`;
+  linksDoc += `Local Test Link:           file:///${__dirname.replace(/\\/g, '/')}/index.html?u=${f.id}\n\n`;
 });
 
 linksDoc += `========================================================================
-💡 HOW TO SHARE:
-1. If testing locally: Click any 'Local Test Link' or open index/${friends[0].id}/
-2. When deploying to GitHub Pages or custom domain:
-   Replace https://<YOUR-USERNAME>.github.io/<REPO-NAME>/ with your actual URL!
+💡 QUICK SHARING OPTIONS:
+1. Open "share-links.html" locally in your browser for 1-click copying and WhatsApp sharing!
+2. Copy any of the "Live Link" URLs above and send directly to your friend.
 ========================================================================\n`;
 
 fs.writeFileSync(path.join(__dirname, 'links.txt'), linksDoc, 'utf8');

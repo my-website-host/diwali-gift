@@ -1,4 +1,13 @@
-# Private invite links (DO NOT COMMIT)
+# Private invite links & local tools (DO NOT COMMIT)
 links.txt
 secret-links.txt
+share-links.html
+dashboard.html
+admin.html
+
+# Local personal notes
 *.md
+
+# Local OS/Editor
+.DS_Store
+Thumbs.db
