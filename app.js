@@ -8,18 +8,18 @@
     window.scrollTo(0, 0);
   };
 
-  // ignore case, spaces, punctuation and accents
+  // Normalize string: lowercase, strip non-alphanumeric
   const norm = (s) => (s || '').toLowerCase().normalize('NFKD').replace(/[^a-z0-9]/g, '');
-  const findFriend = (input) => {
-    if (!input) return null;
-    const n = norm(input);
-    return n ? CONFIG.friends.find(f => (f.id && norm(f.id) === n) || f.names.some(x => norm(x) === n)) : null;
-  };
+
+  // STRICT TOKEN ONLY — matches f.id (name-hash) exclusively. Plain names are rejected.
   const findFriendByToken = (token) => {
     if (!token) return null;
     const n = norm(token);
-    return CONFIG.friends.find(f => (f.id && norm(f.id) === n) || f.names.some(x => norm(x) === n)) || null;
+    return CONFIG.friends.find(f => f.id && norm(f.id) === n) || null;
   };
+
+  // findFriend used by the manual input field — also token-only now.
+  const findFriend = (input) => findFriendByToken(input);
 
   function getInviteToken() {
     // 1. Check window global override (e.g. from static wrapper pages)
@@ -322,7 +322,7 @@
 
   let friend = null;
 
-  /* ---------- 1. Name gate & Fallback Code Input ---------- */
+  /* ---------- 1. Secret Code Gate ---------- */
   $('#gate-form').addEventListener('submit', (e) => {
     e.preventDefault();
     SoundFX.init();
@@ -331,8 +331,8 @@
     const msg = $('#gate-msg');
     if (!f) {
       msg.textContent = v
-        ? "Hmm, this gift isn't meant for that name or code 🙈 Check the spelling or use your personal link!"
-        : 'Type your name or secret code first 😄';
+        ? "That code doesn't match any gift 🙈 Check the link you received!"
+        : 'Enter your secret gift code first 😄';
       shake($('#gate .card'));
       return;
     }
